@@ -1,8 +1,10 @@
 $(function() {
-	var rouletter = $('div.roulette');
-	var startButton = $('#startButton');
-	var stopButton = $('#stopButton');
-	var initButton = $('#initButton');
+	var rouletter = $('div.roulette'),
+		startButton = $('#startButton'),
+		stopButton = $('#stopButton'),
+		initButton = $('#initButton'),
+		settingButton = $('#settingButton'),
+		textarea = $('#textarea');
 	var addItem = function() {
 		var members = $('.members_container ul li'), imgUrlList = [];
 		for (var i = 0; i < members.length; i++) {
@@ -48,5 +50,19 @@ $(function() {
 	initButton.click(function() {
 		addItem();
 		initRoulette();
+	});
+	settingButton.click(function() {
+		$(".mdl-list").empty();
+		var str = textarea[0].value;
+		var items = str.split(',');
+		for (var i = 0; i < items.length; i++) {
+			if (items[i] === '' || items[i] === undefined || items[i] === null) {
+				continue;
+			}
+			$('.mdl-list').append('<li class="mdl-list__item">' + items[i] + '</li>');
+		}
+		initButton.removeAttr('disabled');
+		startButton.attr("disabled", "true");
+		stopButton.attr("disabled", "true");
 	});
 });
